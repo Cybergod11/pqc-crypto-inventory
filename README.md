@@ -40,3 +40,54 @@ This project models these factors and provides a **data-driven prioritization st
 ## 🏗️ System Model
 
 Each system is represented as:
+Where:
+
+- **A** = Algorithms (RSA, AES, ECC, etc.)  
+- **P** = Protocols (TLS, VPN, etc.)  
+- **D** = Data being protected  
+- **L** = Data lifetime  
+- **U** = Upgradeability  
+- **M** = Mission impact  
+
+---
+
+## ⚠️ Risk Model
+
+Priority is computed as a function of:
+
+- Quantum vulnerability  
+- Data lifetime  
+- Mission impact  
+- Exposure  
+- Upgrade difficulty  
+
+Additionally, a simulation estimates the probability that data will be compromised based on when quantum computers become practical.
+
+---
+
+## 📊 Example Output
+Drone System
+Priority: 18.0
+Risk: 0.31
+Recommendation: Immediate PQC migration
+Category: CRITICAL
+Public Website
+Priority: 5.0
+Risk: 0.0
+Recommendation: Monitor
+Category: LOW
+
+---
+
+## 💡 Key Insight
+
+> Migration priority depends more on **data lifetime and mission impact** than on algorithm choice alone.
+
+Not all systems require immediate migration—this tool identifies where action is most critical.
+
+---
+
+## 🧰 Installation
+
+```bash
+pip install -r requirements.txt
