@@ -182,18 +182,30 @@ Supported domains:
 - Coalition Readiness
 - Migration Priority Queue
 
-## Migration Roadmap
+## Executive Decision Framework
 
 ```mermaid
-timeline
-    title PQC Migration Roadmap
+flowchart TB
 
-    2026 : Inventory
-    2027 : Risk Assessment
-    2028 : Hybrid Deployment
-    2029 : ML-KEM Migration
-    2030 : ML-DSA Migration
-    2031 : Legacy Retirement
+A[System Inventory]
+
+A --> B[Priority]
+A --> C[Risk]
+A --> D[Readiness]
+A --> E[Compliance]
+
+B --> F[Executive KPIs]
+C --> F
+D --> F
+E --> F
+
+F --> G[Budget Decisions]
+F --> H[Migration Queue]
+F --> I[COA Generator]
+
+I --> J[Aggressive]
+I --> K[Balanced]
+I --> L[Budget]
 ```
 
 ## 🧰 Installation
