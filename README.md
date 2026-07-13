@@ -182,34 +182,18 @@ Supported domains:
 - Coalition Readiness
 - Migration Priority Queue
 
-## PQC Decision Support Architecture
+## Migration Roadmap
 
 ```mermaid
-flowchart LR
+timeline
+    title PQC Migration Roadmap
 
-A[System Inventory] --> B[Processing Engine]
-
-B --> C[Priority Scoring]
-B --> D[Quantum Risk Modeling]
-B --> E[HNDL Analysis]
-B --> F[Compliance Analysis]
-B --> G[Military Readiness]
-B --> H[Coalition Readiness]
-B --> I[Machine Learning]
-
-I --> J[ML Risk Score]
-
-C --> K[Executive Dashboard]
-D --> K
-E --> K
-F --> K
-G --> K
-H --> K
-J --> K
-
-K --> L[Migration Planning]
-K --> M[CBOM Export]
-K --> N[Executive Reports]
+    2026 : Inventory
+    2027 : Risk Assessment
+    2028 : Hybrid Deployment
+    2029 : ML-KEM Migration
+    2030 : ML-DSA Migration
+    2031 : Legacy Retirement
 ```
 
 ## 🧰 Installation
