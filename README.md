@@ -182,6 +182,38 @@ Supported domains:
 - Coalition Readiness
 - Migration Priority Queue
 
+  ## System Architecture
+
+```mermaid
+flowchart TD
+
+    A[Upload Dataset] --> B[Process Systems]
+
+    B --> C[Risk Engine]
+    B --> D[HNDL Engine]
+    B --> E[Military Readiness]
+    B --> F[Coalition Readiness]
+    B --> G[ML Risk Prediction]
+
+    C --> H[Dashboard]
+    D --> H
+    E --> H
+    F --> H
+    G --> H
+
+    H --> T1[Inventory]
+    H --> T2[Risk Analysis]
+    H --> T3[PQC Strategy]
+    H --> T4[Analytics]
+    H --> T5[Alerts]
+    H --> T6[Export & Reports]
+    H --> T7[Executive Summary]
+    H --> T8[HNDL Intelligence]
+    H --> T9[Military Readiness]
+    H --> T10[Intelligence Risk]
+    H --> T11[Coalition Readiness]
+```
+
 ## 🧰 Installation
 
 ```bash
