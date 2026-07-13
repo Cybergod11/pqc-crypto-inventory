@@ -182,36 +182,34 @@ Supported domains:
 - Coalition Readiness
 - Migration Priority Queue
 
-  ## System Architecture
+## PQC Decision Support Architecture
 
 ```mermaid
-flowchart TD
+flowchart LR
 
-    A[Upload Dataset] --> B[Process Systems]
+A[System Inventory] --> B[Processing Engine]
 
-    B --> C[Risk Engine]
-    B --> D[HNDL Engine]
-    B --> E[Military Readiness]
-    B --> F[Coalition Readiness]
-    B --> G[ML Risk Prediction]
+B --> C[Priority Scoring]
+B --> D[Quantum Risk Modeling]
+B --> E[HNDL Analysis]
+B --> F[Compliance Analysis]
+B --> G[Military Readiness]
+B --> H[Coalition Readiness]
+B --> I[Machine Learning]
 
-    C --> H[Dashboard]
-    D --> H
-    E --> H
-    F --> H
-    G --> H
+I --> J[ML Risk Score]
 
-    H --> T1[Inventory]
-    H --> T2[Risk Analysis]
-    H --> T3[PQC Strategy]
-    H --> T4[Analytics]
-    H --> T5[Alerts]
-    H --> T6[Export & Reports]
-    H --> T7[Executive Summary]
-    H --> T8[HNDL Intelligence]
-    H --> T9[Military Readiness]
-    H --> T10[Intelligence Risk]
-    H --> T11[Coalition Readiness]
+C --> K[Executive Dashboard]
+D --> K
+E --> K
+F --> K
+G --> K
+H --> K
+J --> K
+
+K --> L[Migration Planning]
+K --> M[CBOM Export]
+K --> N[Executive Reports]
 ```
 
 ## 🧰 Installation
