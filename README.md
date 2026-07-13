@@ -91,3 +91,99 @@ Not all systems require immediate migration—this tool identifies where action 
 
 ```bash
 pip install -r requirements.txt
+
+
+# New Features
+
+## Coalition Readiness Assessment
+
+Evaluate PQC readiness across coalition environments.
+
+Features:
+- Coalition risk scoring
+- Interoperability risk analysis
+- Coalition readiness scoring
+- Coalition readiness categories:
+  - READY
+  - PARTIAL
+  - AT RISK
+
+Example systems:
+- NATO Mission Network
+
+---
+
+## Intelligence Risk Analysis
+
+Assess harvest-now-decrypt-later exposure.
+
+Metrics:
+- Archive Risk
+- HNDL Score
+- Classification Impact
+
+Example systems:
+- SIGINT Processing Node
+
+---
+
+## Military Readiness Dashboard
+
+Evaluate operational readiness for PQC migration.
+
+Metrics:
+- Military Readiness Score
+- Compliance Score
+- Crypto Agility Maturity
+- Mission Readiness Category
+
+---
+
+## Mission Domains
+
+Supported domains:
+
+- Enterprise
+- Tactical
+- SATCOM
+- Intelligence
+- Coalition
+- Platform
+- Operational
+
+---
+
+## Analytics
+
+- Machine Learning Risk Prediction
+- Dependency Graph Analysis
+- Threat Surface Analysis
+- Priority Scoring
+- HNDL Forecasting
+
+---
+
+## Export Capabilities
+
+- CSV Reports
+- CBOM Generation
+- Migration Planning Outputs
+
+---
+
+## Coalition Metrics
+
+- Coalition Risk
+- Coalition Readiness
+- Coalition Category
+- Interoperability Risk
+
+---
+
+## Executive KPIs
+
+- Average Quantum Risk
+- Average Priority
+- Military Readiness
+- Coalition Readiness
+- Migration Priority Queue
