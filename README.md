@@ -87,12 +87,6 @@ Not all systems require immediate migration—this tool identifies where action 
 
 ---
 
-## 🧰 Installation
-
-```bash
-pip install -r requirements.txt
-
-
 # New Features
 
 ## Coalition Readiness Assessment
@@ -187,3 +181,8 @@ Supported domains:
 - Military Readiness
 - Coalition Readiness
 - Migration Priority Queue
+
+## 🧰 Installation
+
+```bash
+pip install -r requirements.txt
