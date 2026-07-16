@@ -27,7 +27,7 @@ def simulate_risk(data_lifetime, max_years, trials=300):
     )
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13, tab14 = st.tabs([
     "📋 Inventory",
     "⚠️ Risk Analysis",
     "🧠 PQC Strategy",
@@ -38,7 +38,10 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
     "🛰️ HNDL Intelligence",
     "🪖 Military Readiness",
     "🕵️ Intelligence Risk",
-    "🤝 Coalition Readiness"
+    "🤝 Coalition Readiness",
+    "📜 NIST Compliance",
+    "📅 Campaign Planner",
+    "💰 Cost Modeling"
 ])
 
 st.sidebar.header("⚙️ Filters")
@@ -391,16 +394,34 @@ def pqc_overhead_penalty(system):
 
 
 def recommended_crypto(system):
-    if system.get("classification") in ["secret", "top_secret"]:
-        return "CRYSTALS-Kyber (KEM) + CRYSTALS-Dilithium (Signatures)"
-    elif system.get("network_type") == "enterprise":
-        return "Kyber1024 + Dilithium3"
-    elif system.get("network_type") == "tactical":
-        return "Kyber768 + Dilithium2"
-    elif system.get("network_type")  == "satcom":
-        return "SPHINCS+ (lightweight)"
-    else:
-        return "Kyber + Dilithium (hybrid)"
+
+    if (
+        system["classification"]
+        == "top_secret"
+    ):
+        return (
+            "ML-KEM + ML-DSA"
+        )
+
+    if (
+        system["network_type"]
+        == "satcom"
+    ):
+        return (
+            "ML-KEM-768 + Falcon"
+        )
+
+    if (
+        system["network_type"]
+        == "tactical"
+    ):
+        return (
+            "ML-KEM-512 + Falcon"
+        )
+
+    return (
+        "ML-KEM-768 + ML-DSA"
+    )
 
 
 def assign_architecture(system):
@@ -607,6 +628,60 @@ def coalition_category(score):
         return "PARTIAL"
     return "AT RISK"
 
+def migration_cost(system):
+    base = 50000
+
+    return (
+        base *
+        system.get("upgrade_difficulty", 1) *
+        migration_difficulty(system)
+    )
+
+def risk_reduction(system):
+
+    return round(
+        system["priority"]
+        * system["risk"],
+        2
+    )
+
+def migration_roi(system):
+
+    cost = system["migration_cost"]
+
+    if cost == 0:
+        return 0
+
+    return round(
+        system["risk_reduction"]
+        / cost,
+        6
+    )
+
+def sustainment_risk(system):
+
+    return (
+        system.get("platform_age",0)
+        + system.get("upgrade_difficulty",0)
+        + (
+            5 if system.get("compute") == "low"
+            else 0
+        )
+    )
+
+def satcom_overhead(system):
+    if (
+        system.get("network_type")
+        != "satcom"
+    ):
+        return None
+
+    return {
+        "Latency Increase": "22%",
+        "Bandwidth Increase": "18%",
+        "Handshake Increase": "35%"
+    }
+
 
 def process_systems(systems, max_years):
     processed = []
@@ -653,6 +728,9 @@ def process_systems(systems, max_years):
         s["coalition_risk"] = coalition_risk(s)
         s["coalition_readiness"] = coalition_readiness(s)
         s["coalition_category"] = coalition_category(s["coalition_readiness"])
+        s["migration_cost"] = migration_cost(s)
+        s["risk_reduction"] = risk_reduction(s)
+        s["roi"] = migration_roi(s)
         s["phase"] = migration_phase(s)
         s["sustainment_risk"] = sustainment_risk(s)
 
@@ -885,16 +963,6 @@ if uploaded_systems:
 else:
     systems = load_data()
 
-def sustainment_risk(system):
-
-    return (
-        system.get("platform_age",0)
-        + system.get("upgrade_difficulty",0)
-        + (
-            5 if system.get("compute") == "low"
-            else 0
-        )
-    )
 
 systems = process_systems(systems, max_years)
 model = train_simple_model(systems)
@@ -979,6 +1047,15 @@ def plot_hndl_curve(system):
     ax.set_ylabel("Compromise Risk")
     ax.set_title(f"HNDL Risk Curve: {system['name']}")
     st.pyplot(fig)
+
+
+def hndl_curve(system):
+    years = list(range(1, max_years + 1))
+    values = [
+        1 if system.get("data_lifetime", 0) >= y else 0
+        for y in years
+    ]
+    return years, values
 
 
 def io_t_classification(system):
@@ -1087,18 +1164,23 @@ with tab3:
                 st.write(f"• {step}")
 
 
+# Ensure a dataframe exists for analytics (build from filtered systems)
 df = pd.DataFrame(filtered_systems)
 
-pivot = df.pivot_table(
-    values="priority",
-    index="network_type",
-    columns="category",
-    aggfunc="mean"
-)
+if not df.empty:
+    pivot = df.pivot_table(
+        index="network_type",
+        columns="category",
+        values="priority",
+        aggfunc="mean"
+    )
 
-fig, ax = plt.subplots()
-heatmap = ax.imshow(pivot.fillna(0).values, cmap="viridis", aspect="auto")
-
+    fig, ax = plt.subplots()
+    heatmap = ax.imshow(
+        pivot.fillna(0).values,
+        cmap="viridis",
+        aspect="auto"
+    )
 for i, row in enumerate(pivot.fillna(0).values):
     for j, val in enumerate(row):
         ax.text(j, i, f"{val:.1f}", ha="center", va="center", color="white")
@@ -1135,6 +1217,35 @@ def explain_ml(system, model):
     }
     return contributions
 
+def explain_risk(system):
+
+    reasons = []
+
+    if "RSA" in system.get("algorithms", []):
+        reasons.append(
+            "Uses RSA"
+        )
+
+    if system.get("data_lifetime", 0) > 15:
+        reasons.append(
+            "Long-term data retention"
+        )
+
+    if system.get("exposure", 0) > 3:
+        reasons.append(
+            "High exposure"
+        )
+
+    if (
+        system.get("network_domain")
+        == "coalition"
+    ):
+        reasons.append(
+            "Coalition dependency"
+        )
+
+    return reasons
+
 def build_network_graph(systems):
 
     G = nx.DiGraph()
@@ -1154,6 +1265,10 @@ def build_network_graph(systems):
 
     return G
 
+
+def blast_radius(graph):
+    return nx.degree_centrality(graph)
+
 years = list(range(1, max_years))
 trend = [
     sum(1 for s in systems if s["data_lifetime"] >= y)
@@ -1161,12 +1276,76 @@ trend = [
 ]
 
 with tab4:
+    st.subheader("💥 Blast Radius")
+
+    graph = build_network_graph(filtered_systems)
+
+    centrality = blast_radius(graph)
+
+    impact = 0
+
+    if filtered_systems:
+        selected_system_name = st.selectbox(
+            "System",
+            [s["name"] for s in filtered_systems]
+        )
+
+        selected_system = next(
+            s for s in filtered_systems
+            if s["name"] == selected_system_name
+        )
+
+        years, values = hndl_curve(selected_system)
+
+        fig, ax = plt.subplots()
+        ax.plot(
+            years,
+            values,
+            linewidth=3
+        )
+
+        st.pyplot(fig)
+
+        st.bar_chart(explain_ml(selected_system, model))
+
+        st.dataframe(
+            pd.DataFrame.from_dict(
+                centrality, orient="index", columns=["Centrality"]
+            ).sort_values(by="Centrality", ascending=False)
+        )
+
+        target = selected_system
+
+        st.metric(
+            "Mission Impact Score",
+            target.get("mission_impact", 0)
+        )
+
+        impact = selected_system.get("exposure", 0)
+
+        heat_df = pd.DataFrame([
+            {
+                "Domain": s["network_domain"],
+                "Readiness": s["readiness_category"]
+            }
+            for s in filtered_systems
+        ])
+        pivot = pd.crosstab(
+            heat_df["Domain"],
+            heat_df["Readiness"]
+        )
+
+        st.dataframe(pivot)
+
+    st.metric(
+        "Mission Exposure Impact",
+        impact
+    )
+
     st.divider()
     st.header("📊 ML Explainability")
     st.subheader("Quantum Risk Trend")
     st.line_chart(trend)
-
-    graph = build_network_graph(filtered_systems)
 
     st.metric(
         "Dependency Nodes",
@@ -1178,22 +1357,6 @@ with tab4:
         graph.number_of_edges()
     )
 
-
-    if filtered_systems:
-        selected_system = st.selectbox(
-            "Select System",
-            [s["name"] for s in filtered_systems]
-        )
-        selected = next(
-            (s for s in filtered_systems if s["name"] == selected_system),
-            None
-        )
-        if selected:
-            st.bar_chart(explain_ml(selected, model))
-        else:
-            st.warning("Selected system not found.")
-    else:
-        st.warning("No systems available for explainability.")
 
 for s in systems:
     s["final_risk"] = round(
@@ -1288,6 +1451,9 @@ def save_network_distribution(filtered_systems):
     plt.close()
 
 def save_heatmap(df):
+    if df.empty:
+        return
+
     pivot = df.pivot_table(
         values="priority",
         index="network_type",
@@ -1296,12 +1462,11 @@ def save_heatmap(df):
     )
 
     fig, ax = plt.subplots(figsize=(8, 6), dpi=300)
-
-    heatmap = ax.imshow(pivot.fillna(0).values, cmap="viridis", aspect="auto")
-
-    for i, row in enumerate(pivot.fillna(0).values):
-        for j, val in enumerate(row):
-            ax.text(j, i, f"{val:.1f}", ha="center", va="center", color="white")
+    heatmap = ax.imshow(
+        pivot.fillna(0).values,
+        cmap="viridis",
+        aspect="auto"
+    )
 
     ax.set_xticks(range(len(pivot.columns)))
     ax.set_xticklabels(pivot.columns)
@@ -1309,19 +1474,48 @@ def save_heatmap(df):
     ax.set_yticklabels(pivot.index)
 
     ax.grid(True, linestyle='--', alpha=0.5)
-
     fig.colorbar(heatmap, ax=ax)
 
     plt.tight_layout()
     plt.savefig("heatmap.png", dpi=300)
-    plt.close()
+    plt.close() 
+if not df.empty:
+    pivot = df.pivot_table(
+        index="network_type",
+        columns="category",
+        values="priority",
+        aggfunc="mean"
+    )
+    save_scatter_plot(df)    
+    save_network_distribution(filtered_systems)    
+    save_heatmap(df)
 
-# ✅ Generate high-quality figures for LaTeX
-df = pd.DataFrame(filtered_systems)
+    fig, ax = plt.subplots()
+    heatmap = ax.imshow(
+        pivot.fillna(0).values,
+        cmap="viridis",
+        aspect="auto"
+    )
 
-save_scatter_plot(df)
-save_network_distribution(filtered_systems)
-save_heatmap(df)
+    for i, row in enumerate(pivot.fillna(0).values):
+        for j, val in enumerate(row):
+            ax.text(
+                j,
+                i,
+                f"{val:.1f}",
+                ha="center",
+                va="center",
+                color="white"
+            )
+
+    ax.set_xticks(range(len(pivot.columns)))
+    ax.set_xticklabels(pivot.columns)
+    ax.set_yticks(range(len(pivot.index)))
+    ax.set_yticklabels(pivot.index)
+
+    fig.colorbar(heatmap, ax=ax)
+
+
     
 
 with tab6: 
@@ -1355,14 +1549,41 @@ with tab6:
 
 
 with tab7:
-    st.header("📈 Executive Summary")
+
+    st.subheader("Executive KPIs")
 
     critical_count = sum(1 for s in filtered_systems if s["category"] == "CRITICAL")
+    portfolio_cost = sum(
+        s.get("migration_cost", 0)
+        for s in filtered_systems
+    )
+    portfolio_risk_reduction = sum(
+        s.get("risk_reduction", 0)
+        for s in filtered_systems
+    )
 
+    col1, col2, col3, col4, col5 = st.columns(5)
+
+    col1.metric("Systems", len(filtered_systems))
+    col2.metric("Critical", critical_count)
+    avg_readiness = (
+        sum(s["military_readiness"] for s in filtered_systems)
+        / len(filtered_systems)
+        if filtered_systems
+        else 0
+    )
+
+    col3.metric(
+        "Avg Readiness",
+        round(avg_readiness, 1)
+    )
+    col4.metric("Portfolio Cost", f"${portfolio_cost:,.0f}")
+    col5.metric("Risk Reduction", round(portfolio_risk_reduction, 1))
+
+    st.header("📈 Executive Summary")
     st.metric("Critical Systems", critical_count)
 
     top_risks = sorted(filtered_systems, key=lambda x: x["final_risk"], reverse=True)[:5]
-
     for s in top_risks:
         st.write(f"{s['name']} → Risk: {s['final_risk']}")
 
@@ -1400,6 +1621,12 @@ with tab8:
 
     st.dataframe(hndl_df)
 
+avg_readiness = (
+    sum(s["military_readiness"] for s in filtered_systems)
+    / len(filtered_systems)
+    if filtered_systems
+    else 0
+)
 
 with tab9:
 
@@ -1433,16 +1660,15 @@ with tab9:
 
     st.divider()
 
-    for s in filtered_systems:
-
+    for s in ranking:
         with st.expander(s["name"]):
 
             col1, col2, col3 = st.columns(3)
 
             col1.metric(
-    "Mission Type",
-    s.get("mission_type", "Unknown")
-)
+                "Mission Type",
+                s.get("mission_type", "Unknown")
+            )
 
             col2.metric(
                 "Readiness Score",
@@ -1541,3 +1767,287 @@ with tab11:
         )
 
 
+with tab12:
+
+    st.header("📜 NIST Compliance")
+
+    total = len(filtered_systems)
+
+    compliant = sum(
+        1 for s in filtered_systems
+        if s["compliance"] >= 90
+    )
+
+    progress = compliant / total if total else 0
+
+    st.metric(
+        "Compliant Systems",
+        compliant
+    )
+
+    st.progress(progress)
+
+    st.metric(
+        "Compliance %",
+        round(progress * 100, 1)
+    )
+    st.subheader("🚀 Migration Queue")
+
+    def migration_queue(systems):
+        return sorted(
+            systems,
+            key=lambda s: (
+                s["priority"],
+                s["archive_risk"]
+            ),
+            reverse=True
+        )
+
+    queue = migration_queue(
+        filtered_systems
+    )
+
+    st.dataframe(
+        pd.DataFrame([
+            {
+                "System": s["name"],
+                "Priority": s["priority"],
+                "Risk": s["risk"]
+            }
+            for s in queue[:10]
+        ])
+    )
+
+
+def generate_coa(systems):
+
+    critical = sum(
+        1
+        for s in systems
+        if s["category"] == "CRITICAL"
+    )
+
+    return {
+
+        "Aggressive":
+        f"Migrate all {critical} critical systems by FY28.",
+
+        "Balanced":
+        "Migrate CRITICAL and HIGH systems first.",
+
+        "Budget":
+        "Protect intelligence and coalition assets first."
+    }
+
+def campaign_plan(
+    systems,
+    annual_budget,
+    start_year=2027
+):
+
+    queue = sorted(
+        systems,
+        key=lambda s: (
+            s["priority"],
+            s["archive_risk"]
+        ),
+        reverse=True
+    )
+
+    plan = {}
+
+    year = start_year
+    budget_remaining = annual_budget
+
+    plan[year] = []
+
+    for system in queue:
+
+        cost = system["migration_cost"]
+
+        if cost > budget_remaining:
+
+            year += 1
+            budget_remaining = annual_budget
+
+            plan[year] = []
+
+        plan[year].append({
+            "System": system["name"],
+            "Cost": cost,
+            "Priority": system["priority"]
+        })
+
+        budget_remaining -= cost
+
+    return plan
+
+with tab13:
+
+    st.header("📅 PQC Campaign Planner")
+
+    annual_budget = st.slider(
+        "Annual Migration Budget ($)",
+        100000,
+        5000000,
+        1000000,
+        step=100000
+    )
+
+    start_year = st.number_input(
+        "Starting Fiscal Year",
+        value=2027
+    )
+
+    plan = campaign_plan(
+        filtered_systems,
+        annual_budget,
+        start_year
+    )
+
+    st.metric(
+        "Years To Complete",
+        len(plan)
+    )
+
+    with st.expander("COA"):
+
+        coa = generate_coa(
+            filtered_systems
+        )
+
+        for name, text in coa.items():
+
+            st.subheader(name)
+
+            st.write(text)
+
+    for year, projects in plan.items():
+
+        st.subheader(f"FY{year}")
+
+        if projects:
+
+            st.dataframe(
+                pd.DataFrame(projects)
+            )
+
+with tab14:
+
+    st.header("💰 Cost Modeling")
+    cost_df = pd.DataFrame([
+        {
+            "System": s["name"],
+            "Migration Cost":
+                s["migration_cost"],
+
+            "Priority":
+                s["priority"],
+
+            "Risk Reduction":
+                s["risk_reduction"],
+
+            "ROI":
+                s["roi"]
+        }
+        for s in filtered_systems
+    ])
+
+    st.dataframe(cost_df)
+
+    # Sort by ROI and show best candidate
+    roi_df = cost_df.sort_values(
+        "ROI",
+        ascending=False
+    )
+
+    if not roi_df.empty:
+        best = roi_df.iloc[0]
+        st.success(f"Best ROI Candidate: {best['System']}")
+
+    st.divider()
+
+    st.metric(
+    "Risk Reduction Potential",
+    round(
+        cost_df['Risk Reduction'].sum(),
+        1
+    )
+)
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric(
+        "Portfolio Cost",
+        f"${cost_df['Migration Cost'].sum():,.0f}"
+    )
+
+    col2.metric(
+        "Total Risk Reduction",
+        round(
+            cost_df[
+                "Risk Reduction"
+            ].sum(),
+            1
+        )
+    )
+
+    avg_roi = (
+        cost_df["ROI"].mean()
+        if not cost_df.empty
+        else 0
+    )
+
+    col3.metric(
+        "Average ROI",
+        round(avg_roi, 6)
+    )
+    st.subheader(
+            "Cost Distribution"
+        )
+
+    if not cost_df.empty:
+            chart_df = cost_df.set_index(
+                "System"
+            )
+            st.bar_chart(chart_df["Migration Cost"])
+    else:
+            st.info("No systems match current filters.")
+
+    col1, col2 = st.columns(2)
+
+    col1.metric(
+            "Migration Cost",
+            f"${portfolio_cost:,.0f}"
+        )
+
+    col2.metric(
+            "Risk Reduction Potential",
+            round(
+                portfolio_risk_reduction,
+                1
+            )
+        )
+
+    st.subheader(
+            "Best ROI Candidates"
+        )
+
+    roi_df = cost_df.sort_values(
+            "ROI",
+            ascending=False
+        )
+
+    st.dataframe(
+            roi_df.head(10)
+        )
+
+import time
+
+start = time.time()
+
+systems = process_systems(systems, max_years)
+
+end = time.time()
+
+print(end-start)
