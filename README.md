@@ -249,6 +249,7 @@ The platform supports user-provided inventories through:
 Supported Formats
 
 JSON
+
 CSV
 
 Required Fields
