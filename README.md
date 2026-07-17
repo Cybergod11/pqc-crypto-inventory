@@ -305,14 +305,19 @@ Migration investment planning capabilities include:
 Cost Metrics
 
 Migration Cost
+
 Portfolio Cost
+
 Risk Reduction Potential
+
 Return on Investment (ROI)
 
 Outputs
 
 Cost Distribution
+
 Best ROI Candidates
+
 Portfolio-Level Cost Projections
 
 ## 📅 Campaign Planning
@@ -321,14 +326,19 @@ The Campaign Planner allows organizations to estimate migration schedules based 
 Features include:
 
 Annual Budget Constraints
+
 Fiscal Year Planning
+
 Migration Queue Generation
+
 Course of Action (COA) Analysis
 
 COAs:
 
 Aggressive
+
 Balanced
+
 Budget-Constrained
 
 ## 📜 Compliance & Modernization
@@ -336,8 +346,11 @@ Budget-Constrained
 The platform evaluates cryptographic modernization readiness using:
 
 NIST Compliance Metrics
+
 Crypto Agility Assessment
+
 TLS Upgrade Identification
+
 Legacy Algorithm Detection
 
 ## 📈 Performance
@@ -351,11 +364,14 @@ Testing demonstrated:
 
   These results provide scalability of the architecture for larger operational datasets. 
 
-Processing Performance
+Processing Performance:
+
 Testing demonstrated inventory processing times of approximately:
 
 Benefits:
+
 Automated prioritization
+
 Immediate report generation
 
 ## 🎯 Results & Impact
@@ -363,18 +379,27 @@ Immediate report generation
 Operational Improvements
 
 Automated cryptographic inventory assessment
+
 Reduced manual analysis effort
+
 Accelerated migration planning
+
 Improved portfolio visibility
+
 Standardized risk prioritization
+
 Executive decision support
 
 Quantifiable Benefits
 
 Near-instant portfolio processing
+
 Automated CBOM generation
+
 Automated migration roadmap generation
+
 Automated risk and readiness calculations
+
 Support for operational data replacement through CSV and JSON imports
 
 ## 🔄 Extensibility
@@ -382,11 +407,17 @@ Support for operational data replacement through CSV and JSON imports
 The architecture was designed to support future integration with:
 
 RMF Artifacts
+
 ATO Documentation
+
 Enterprise Asset Inventories
+
 CMDB Platforms
+
 PKI Repositories
+
 Cyber Asset Management Systems
+
 Army Enterprise Network Inventories
 
 ## 📸 Dashboard Screenshots
