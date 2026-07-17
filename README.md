@@ -461,7 +461,7 @@ Planned improvements include:
 ## Clone Repository
 
 ```bash
-git clone https://github.com/your-org/pqc-dashboard.git
+git clone [https://github.com/your-org/pqc-dashboard.git](https://github.com/Cybergod11/pqc-crypto-inventory)
 cd pqc-dashboard
 ```
 
@@ -476,9 +476,6 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-```bash
-pip install -r requirements.txt
-```
 
 ## 👥 Authors
 
