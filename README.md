@@ -14,7 +14,7 @@ This project demonstrates a scalable framework for prioritizing Post-Quantum Cry
 
 The objective of this project is to provide organizations with a scalable methodology for identifying quantum-vulnerable systems, assessing modernization readiness, prioritizing migration activities, and supporting executive decision-making through data-driven analytics which is efficient and decisive. 
 
-The platform is designed so that organizations can upload their own cryptographic inventories in CSV or JSON format and automatically generate risk assessments, migration plans, readiness scores, and executive reports without modifying the source code. WHich will expand it's presence from a small project to hopefully a massive expansion towards the future within Post-Quantum Cryptography. 
+The platform is designed so that organizations can upload their own cryptographic inventories in CSV or JSON format and automatically generate risk assessments, migration plans, readiness scores, and executive reports without modifying the source code. Which will expand it's presence from a small project to hopefully a massive expansion towards the future within Post-Quantum Cryptography. 
 
 ---
 
