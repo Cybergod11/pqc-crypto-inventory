@@ -6,6 +6,8 @@ This project implements an automated system for **cryptographic inventory, risk 
 
 Modern cryptographic systems (RSA, ECC, Diffie–Hellman) are vulnerable to quantum attacks. This tool helps identify where cryptography is used, evaluates risk, and determines which systems should be migrated first.
 
+This project demonstrates a scalable framework for prioritizing Post-Quantum Cryptography migration across multiple sections such as Enterprise, Tactical, Intelligence, SATCOM, Coalition, and platform enviornments using an automated risk analysis, readiness assessment, cost modeling, and campaign planning. 
+
 ---
 
 ## 🚀 Features
@@ -207,6 +209,144 @@ I --> J[Aggressive]
 I --> K[Balanced]
 I --> L[Budget]
 ```
+
+🖥️ Dashboard Interface
+The application provides a multi-tab operational dashboard supporting portfolio-wide PQC assessment and migration planning.
+Dashboard Modules
+
+📋 System Inventory
+⚠️ Risk Analysis
+🧠 PQC Strategy
+📊 Analytics
+🚨 Alerts
+📦 Export & Reports
+📈 Executive Summary
+🛰️ HNDL Intelligence
+🪖 Military Readiness
+🕵️ Intelligence Risk
+🤝 Coalition Readiness
+📜 NIST Compliance
+📅 Campaign Planner
+💰 Cost Modeling
+
+📂 Data Import Support
+The platform supports user-provided inventories through:
+Supported Formats
+
+JSON
+CSV
+
+Required Fields
+{
+  "name": "System Name",
+  "algorithms": ["RSA"],
+  "protocols": ["TLS 1.2"]
+}
+Army personnel can replace the dataset with their own without changing the source code through an upload function.
+
+🔐 Cryptographic Bill of Materials (CBOM)
+The tool automatically generates a CBOM for each system.
+Generated fields include:
+
+Current Algorithms
+Recommended PQC Algorithms
+Migration Phase
+Network Domain
+Readiness Status
+Migration Difficulty
+HNDL Score
+
+🤖 Machine Learning Assisted Risk Assessment
+The dashboard includes a lightweight machine-learning risk model used to:
+
+Analyze system attributes
+Estimate future quantum risk
+Compare predicted and calculated risk
+Provide explainable risk contributions
+
+Metrics:
+
+ML Risk Score
+Confidence Score
+Feature Contribution Analysis
+
+💸 Cost Modeling
+Migration investment planning capabilities include:
+Cost Metrics
+
+Migration Cost
+Portfolio Cost
+Risk Reduction Potential
+Return on Investment (ROI)
+
+Outputs
+
+Cost Distribution
+Best ROI Candidates
+Portfolio-Level Cost Projections
+
+📅 Campaign Planning
+The Campaign Planner allows organizations to estimate migration schedules based on available funding.
+Features include:
+
+Annual Budget Constraints
+Fiscal Year Planning
+Migration Queue Generation
+Course of Action (COA) Analysis
+
+COAs:
+
+Aggressive
+Balanced
+Budget-Constrained
+
+📜 Compliance & Modernization
+The platform evaluates cryptographic modernization readiness using:
+
+NIST Compliance Metrics
+Crypto Agility Assessment
+TLS Upgrade Identification
+Legacy Algorithm Detection
+
+📈 Performance
+Processing Performance
+Testing demonstrated inventory processing times of approximately:
+0.004 seconds (4 miliseconds)
+
+Benefits:
+Near real-time analysis
+Automated prioritization
+Instant readiness calculations
+Immediate report generation
+
+🎯 Results & Impact
+Operational Improvements
+
+Automated cryptographic inventory assessment
+Reduced manual analysis effort
+Accelerated migration planning
+Improved portfolio visibility
+Standardized risk prioritization
+Executive decision support
+
+Quantifiable Benefits
+
+Near-instant portfolio processing
+Automated CBOM generation
+Automated migration roadmap generation
+Automated risk and readiness calculations
+Support for operational data replacement through CSV and JSON imports
+
+🔄 Extensibility
+The architecture was designed to support future integration with:
+
+RMF Artifacts
+ATO Documentation
+Enterprise Asset Inventories
+CMDB Platforms
+PKI Repositories
+Cyber Asset Management Systems
+Army Enterprise Network Inventories
 
 ## 🧰 Installation
 
