@@ -266,11 +266,17 @@ The tool automatically generates a CBOM for each system.
 Generated fields include:
 
 Current Algorithms
+
 Recommended PQC Algorithms
+
 Migration Phase
+
 Network Domain
+
 Readiness Status
+
 Migration Difficulty
+
 HNDL Score
 
 ## 🤖 Machine Learning Assisted Risk Assessment
