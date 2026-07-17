@@ -350,5 +350,26 @@ Army Enterprise Network Inventories
 
 ## 🧰 Installation
 
+## Clone Repository
+
+```bash
+git clone https://github.com/your-org/pqc-dashboard.git
+cd pqc-dashboard
+```
+
+###Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run Dashboard
+```bash
+streamlit run app.py
+```
+
+
+
+
 ```bash
 pip install -r requirements.txt
