@@ -1,0 +1,6 @@
+streamlit v1.35.0
+pandas v1.5.3
+numpy v1.24.3
+matplotlib v3.7.1
+networkx v3.1
+streamlit-autorefresh v1.0.0
