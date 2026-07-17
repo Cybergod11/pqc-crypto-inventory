@@ -226,7 +226,7 @@ I --> L[Budget]
 ## 🖥️ Dashboard Interface
 
 The application provides a multi-tab operational dashboard supporting portfolio-wide PQC assessment and migration planning.
-Dashboard Modules
+Dashboard Modules:
 
 📋 System Inventory
 ⚠️ Risk Analysis
