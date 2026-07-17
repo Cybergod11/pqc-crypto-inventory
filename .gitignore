@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# Generated Reports
+*.csv
+*.json
+
+# Generated Images
+risk_priority.png
+network_distribution.png
+heatmap.png
+
+# Build Artifacts
+build/
+dist/
+*.egg-info/
+
+# Environment Variables
+.env
+
+# Temporary Files
+temp/
+tmp/
+
+# Data
+data/
+└── sample_inventory
