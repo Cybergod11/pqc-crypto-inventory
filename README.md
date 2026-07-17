@@ -10,6 +10,14 @@ This project demonstrates a scalable framework for prioritizing Post-Quantum Cry
 
 ---
 
+## 🎯 Purpose
+
+The objective of this project is to provide organizations with a scalable methodology for identifying quantum-vulnerable systems, assessing modernization readiness, prioritizing migration activities, and supporting executive decision-making through data-driven analytics which is efficient and decisive. 
+
+The platform is designed so that organizations can upload their own cryptographic inventories in CSV or JSON format and automatically generate risk assessments, migration plans, readiness scores, and executive reports without modifying the source code. WHich will expand it's presence from a small project to hopefully a massive expansion towards the future within Post-Quantum Cryptography. 
+
+---
+
 ## 🚀 Features
 
 - ✅ Cryptographic inventory model for system analysis  
@@ -178,11 +186,16 @@ Supported domains:
 
 ## Executive KPIs
 
+The dashboard provides leadership-focused metrics including:
+
 - Average Quantum Risk
-- Average Priority
-- Military Readiness
-- Coalition Readiness
+- Average Priority score
+- Military Readiness score
+- Coalition Readiness score
+- Total Migration cost
+- Risk reduction potential
 - Migration Priority Queue
+- Porrtfolio Compliance Percentage
 
 ## Executive Decision Framework
 
@@ -210,7 +223,8 @@ I --> K[Balanced]
 I --> L[Budget]
 ```
 
-🖥️ Dashboard Interface
+## 🖥️ Dashboard Interface
+
 The application provides a multi-tab operational dashboard supporting portfolio-wide PQC assessment and migration planning.
 Dashboard Modules
 
@@ -229,7 +243,8 @@ Dashboard Modules
 📅 Campaign Planner
 💰 Cost Modeling
 
-📂 Data Import Support
+## 📂 Data Import Support
+
 The platform supports user-provided inventories through:
 Supported Formats
 
@@ -244,7 +259,8 @@ Required Fields
 }
 Army personnel can replace the dataset with their own without changing the source code through an upload function.
 
-🔐 Cryptographic Bill of Materials (CBOM)
+## 🔐 Cryptographic Bill of Materials (CBOM)
+
 The tool automatically generates a CBOM for each system.
 Generated fields include:
 
@@ -256,7 +272,8 @@ Readiness Status
 Migration Difficulty
 HNDL Score
 
-🤖 Machine Learning Assisted Risk Assessment
+## 🤖 Machine Learning Assisted Risk Assessment
+
 The dashboard includes a lightweight machine-learning risk model used to:
 
 Analyze system attributes
@@ -270,7 +287,8 @@ ML Risk Score
 Confidence Score
 Feature Contribution Analysis
 
-💸 Cost Modeling
+## 💸 Cost Modeling
+
 Migration investment planning capabilities include:
 Cost Metrics
 
@@ -285,7 +303,8 @@ Cost Distribution
 Best ROI Candidates
 Portfolio-Level Cost Projections
 
-📅 Campaign Planning
+## 📅 Campaign Planning
+
 The Campaign Planner allows organizations to estimate migration schedules based on available funding.
 Features include:
 
@@ -300,7 +319,8 @@ Aggressive
 Balanced
 Budget-Constrained
 
-📜 Compliance & Modernization
+## 📜 Compliance & Modernization
+
 The platform evaluates cryptographic modernization readiness using:
 
 NIST Compliance Metrics
@@ -308,18 +328,26 @@ Crypto Agility Assessment
 TLS Upgrade Identification
 Legacy Algorithm Detection
 
-📈 Performance
+## 📈 Performance
+
+Testing demonstrated: 
+
+- 0.004 (4 miliseconds) processing time for the demonstration portfolio
+- Near real-time generation of risk scores
+- Automated CBOM generation
+- Immediate readiness and migration assessments
+
+  These results provide scalability of the architecture for larger operational datasets. 
+
 Processing Performance
 Testing demonstrated inventory processing times of approximately:
-0.004 seconds (4 miliseconds)
 
 Benefits:
-Near real-time analysis
 Automated prioritization
-Instant readiness calculations
 Immediate report generation
 
-🎯 Results & Impact
+## 🎯 Results & Impact
+
 Operational Improvements
 
 Automated cryptographic inventory assessment
@@ -337,7 +365,8 @@ Automated migration roadmap generation
 Automated risk and readiness calculations
 Support for operational data replacement through CSV and JSON imports
 
-🔄 Extensibility
+## 🔄 Extensibility
+
 The architecture was designed to support future integration with:
 
 RMF Artifacts
@@ -348,6 +377,42 @@ PKI Repositories
 Cyber Asset Management Systems
 Army Enterprise Network Inventories
 
+## 📸 Dashboard Screenshots
+
+Within the Repository there are screenshots of the various functions:
+
+- Risk Analysis Dashboard
+- PQC Strategy Dashboard
+- Analytics Dashboard 
+- Executive Dashboard
+- HNDL Intelligence Dashboard
+- Military Readiness Assessment
+- Coalition Readiness Dashboard
+- Intelligence Dashboard
+- NIST Compliance Dashboard
+- Campaign Planning Interface
+- Cost Modeling Dashboard
+
+  ## 🧪 Technologies Used
+
+- Python
+- Streamlit
+- Pandas
+- NumPy
+- Matplotlib
+- NetworkX
+- Streamlit Auto Refresh
+
+  ## 🔮 Future Enhancements
+
+Planned improvements include:
+
+- Excel (.xlsx) import support
+- Enterprise database connectivity
+- AI-assisted migration recommendations
+- Role-based access controls
+- STIG and NIST automation
+
 ## 🧰 Installation
 
 ## Clone Repository
@@ -357,7 +422,7 @@ git clone https://github.com/your-org/pqc-dashboard.git
 cd pqc-dashboard
 ```
 
-###Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -368,8 +433,18 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-
-
-
 ```bash
 pip install -r requirements.txt
+```
+
+## 👥 Authors
+
+Nicholas Ortiz
+
+Project Focus:
+- Post-Quantum Cryptography
+- Cryptographic Inventory
+- Cybersecurity Modernization
+- Risk Assessment Automation
+- Military Readiness Analysis
+- Decision Support Analytics
