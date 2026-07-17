@@ -284,14 +284,19 @@ HNDL Score
 The dashboard includes a lightweight machine-learning risk model used to:
 
 Analyze system attributes
+
 Estimate future quantum risk
+
 Compare predicted and calculated risk
+
 Provide explainable risk contributions
 
 Metrics:
 
 ML Risk Score
+
 Confidence Score
+
 Feature Contribution Analysis
 
 ## 💸 Cost Modeling
